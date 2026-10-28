@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My First Page ｜ 偉恩的數位空間</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Outfit:wght@400;600;700;800&family=Noto+Serif+TC:wght@600;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0C1218;
+      --card-bg: rgba(20, 30, 42, 0.7);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --card-hover-border: rgba(16, 185, 129, 0.4);
+      --accent: #10B981;
+      --accent-bright: #34D399;
+      --accent-glow: rgba(16, 185, 129, 0.2);
+      --amber: #F59E0B;
+      --cyan: #06B6D4;
+      --text: #F3F4F6;
+      --text-sub: #9CA3AF;
+      --text-muted: #6B7280;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Outfit', 'Noto Sans TC', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.7;
+      position: relative;
+    }
+
+    /* Ambient background lighting */
+    .bg-glow-top {
+      position: absolute;
+      top: -150px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 500px;
+      background: radial-gradient(ellipse at center, rgba(16, 185, 129, 0.15), rgba(6, 182, 212, 0.05) 50%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 60px 24px 100px;
+      position: relative;
+      z-index: 10;
+    }
+
+    /* Navigation Bar */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 40px;
+      border-bottom: 1px solid var(--card-border);
+      margin-bottom: 60px;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: 800;
+      color: #FFF;
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .logo-badge {
+      background: var(--accent);
+      color: #0C1218;
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-weight: 900;
+      letter-spacing: 0.05em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .nav-links a {
+      color: var(--text-sub);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent-bright);
+    }
+
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      max-width: 760px;
+      margin: 0 auto 70px;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 16px;
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      border-radius: 999px;
+      color: var(--accent-bright);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-family: 'Noto Serif TC', serif;
+      font-size: clamp(38px, 6vw, 56px);
+      font-weight: 900;
+      line-height: 1.2;
+      color: #FFFFFF;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      color: var(--text-sub);
+      font-size: 18px;
+      line-height: 1.7;
+      margin-bottom: 32px;
+    }
+
+    /* Grid Projects Showcase */
+    .section-title {
+      font-size: 24px;
+      font-weight: 800;
+      color: #FFF;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .grid-cards {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      margin-bottom: 60px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 18px;
+      padding: 32px;
+      backdrop-filter: blur(12px);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card:hover {
+      border-color: var(--card-hover-border);
+      transform: translateY(-6px);
+      box-shadow: 0 20px 40px -15px var(--accent-glow);
+    }
+
+    .card-top {
+      margin-bottom: 24px;
+    }
+
+    .card-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--accent-bright);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      margin-bottom: 18px;
+    }
+
+    .card h3 {
+      font-size: 22px;
+      font-weight: 700;
+      color: #FFF;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      color: var(--text-sub);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      padding-top: 20px;
+      margin-top: 10px;
+    }
+
+    .card-meta {
+      font-size: 13px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.08);
+      color: #FFF;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 9px 18px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .btn:hover {
+      background: var(--accent);
+      color: #0C1218;
+      border-color: var(--accent);
+    }
+
+    .btn.primary {
+      background: var(--accent);
+      color: #0C1218;
+      border-color: var(--accent);
+    }
+
+    .btn.primary:hover {
+      background: var(--accent-bright);
+    }
+
+    /* GitHub Box */
+    .github-banner {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(20, 30, 42, 0.8) 100%);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      border-radius: 18px;
+      padding: 36px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+
+    .github-info h4 {
+      font-size: 20px;
+      font-weight: 700;
+      color: #FFF;
+      margin-bottom: 6px;
+    }
+
+    .github-info p {
+      color: var(--text-sub);
+      font-size: 14.5px;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding-top: 60px;
+      border-top: 1px solid var(--card-border);
+      color: var(--text-muted);
+      font-size: 13.5px;
+    }
+
+    @media (max-width: 768px) {
+      .grid-cards { grid-template-columns: 1fr; }
+      header { flex-direction: column; gap: 16px; }
+      .github-banner { flex-direction: column; text-align: center; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg-glow-top"></div>
+
+  <div class="container">
+    
+    <!-- Header -->
+    <header>
+      <a href="my-first-page.html" class="logo">
+        <span>Wayne's Space</span>
+        <span class="logo-badge">V1.0</span>
+      </a>
+      <nav class="nav-links">
+        <a href="index.html">個人主頁</a>
+        <a href="slides.html">8頁簡報</a>
+        <a href="report.md">重點報告</a>
+        <a href="https://github.com/waynechen-art/antigravity" target="_blank">GitHub 倉庫</a>
+      </nav>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-tag">🌟 My First Page · 專案首頁</div>
+      <h1>穩定前行 · 持續累積</h1>
+      <p>歡迎來到我的個人專案展示空間！這裡彙整了個人品牌網站、產業人才投資方案線上互動簡報，以及官方規範研究報告。</p>
+      <div style="display:flex; justify-content:center; gap:14px; flex-wrap:wrap;">
+        <a href="slides.html" class="btn primary">
+          ▶ 播放 8 頁線上簡報
+        </a>
+        <a href="產業人才投資方案補助要點.PDF" download="產業人才投資方案補助要點.PDF" class="btn">
+          📥 下載官方 PDF 要點
+        </a>
+      </div>
+    </section>
+
+    <!-- Projects Grid -->
+    <section>
+      <h2 class="section-title">📂 核心專案與內容總覽</h2>
+      
+      <div class="grid-cards">
+        
+        <!-- Card 1: 偉恩個人品牌主頁 -->
+        <div class="card">
+          <div class="card-top">
+            <div class="card-icon">👤</div>
+            <h3>偉恩｜個人品牌主頁</h3>
+            <p>
+              在崗位上跑了二十多年，配速穩定，從未停下。完整呈現公司運作、業務、採購與品管經歷，以及下班後的生活配速。
+            </p>
+          </div>
+          <div class="card-footer">
+            <span class="card-meta">HTML5 · 滾動動畫 · 響應式</span>
+            <a href="index.html" class="btn">造訪主頁 →</a>
+          </div>
+        </div>
+
+        <!-- Card 2: 8頁線上簡報 -->
+        <div class="card">
+          <div class="card-top">
+            <div class="card-icon">📊</div>
+            <h3>《產投方案》8 頁線上簡報</h3>
+            <p>
+              三年十萬補助精華提煉！支援鍵盤快速鍵切換、全螢幕播放、出席率標準解析與行動清單，專為高效閱讀設計。
+            </p>
+          </div>
+          <div class="card-footer">
+            <span class="card-meta">8 Slides · 全螢幕互動 · 觸控支援</span>
+            <a href="slides.html" class="btn">立即播放 →</a>
+          </div>
+        </div>
+
+        <!-- Card 3: 重點摘要報告 -->
+        <div class="card">
+          <div class="card-top">
+            <div class="card-icon">📝</div>
+            <h3>法規重點摘要報告</h3>
+            <p>
+              深度整理勞動部 113 年最新修正發布之《產業人才投資方案補助要點》，含資格核驗、弱勢全額與申領流程表。
+            </p>
+          </div>
+          <div class="card-footer">
+            <span class="card-meta">Markdown · 結構化法規分析</span>
+            <a href="report.md" class="btn">閱讀報告 →</a>
+          </div>
+        </div>
+
+        <!-- Card 4: 官方原始文件 -->
+        <div class="card">
+          <div class="card-top">
+            <div class="card-icon">📄</div>
+            <h3>官方補助要點原始文件</h3>
+            <p>
+              勞動部勞動力發展署正式公告條文 PDF 文件，涵蓋全條文規範、違規罰則與審查小組規定，隨時可離線參閱。
+            </p>
+          </div>
+          <div class="card-footer">
+            <span class="card-meta">PDF 格式 · 113年最新令函</span>
+            <a href="產業人才投資方案補助要點.PDF" download="產業人才投資方案補助要點.PDF" class="btn">下載 PDF →</a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- GitHub Banner -->
+    <div class="github-banner">
+      <div class="github-info">
+        <h4>🐙 本專案已完全開源並託管於 GitHub</h4>
+        <p>所有原始程式碼、簡報與報告均透過 SSH 金鑰自動同步至遠端倉庫。</p>
+      </div>
+      <a href="https://github.com/waynechen-art/antigravity" target="_blank" class="btn primary">
+        前往 GitHub Repository →
+      </a>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <p>© 2026 Wayne. Powered by Antigravity · All rights reserved.</p>
+    </footer>
+
+  </div>
+
+</body>
+</html>
