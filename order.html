@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>梁社漢排骨 新興復興店 ｜ 線上點餐系統</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@600;700;900&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #C8232B;
+      --primary-dark: #A3141B;
+      --primary-light: #FDE8E9;
+      --gold: #D4A359;
+      --gold-dark: #B5843E;
+      --dark: #221815;
+      --text: #2D2522;
+      --text-muted: #786B66;
+      --bg: #F8F5F0;
+      --card-bg: #FFFFFF;
+      --border: #E8E2D8;
+      --shadow: 0 8px 24px rgba(34, 24, 21, 0.06);
+      --spicy: #E53E3E;
+      --discount: #E65100;
+      --discount-bg: #FFF3E0;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Outfit', 'Noto Sans TC', sans-serif;
+      line-height: 1.6;
+      padding-bottom: 90px;
+    }
+
+    /* Top Brand Header */
+    .store-header {
+      background: linear-gradient(135deg, #A81B22 0%, #D32F2F 100%);
+      color: #FFF;
+      padding: 24px 20px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 16px rgba(168, 27, 34, 0.25);
+    }
+
+    .store-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .store-brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-seal {
+      width: 52px;
+      height: 52px;
+      background: #FFF;
+      color: var(--primary);
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Noto Serif TC', serif;
+      font-weight: 900;
+      font-size: 15px;
+      line-height: 1.1;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      flex-shrink: 0;
+    }
+
+    .brand-info h1 {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 24px;
+      font-weight: 900;
+      letter-spacing: 0.02em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .brand-sub {
+      font-size: 13px;
+      opacity: 0.9;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 4px;
+      flex-wrap: wrap;
+    }
+
+    .tag-award {
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    /* Main Layout Grid */
+    .main-layout {
+      max-width: 1200px;
+      margin: 24px auto;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      gap: 28px;
+      align-items: start;
+    }
+
+    /* Dine-in / Takeout Selector Card */
+    .order-config-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      box-shadow: var(--shadow);
+    }
+
+    .order-modes {
+      display: flex;
+      gap: 8px;
+      background: var(--bg);
+      padding: 4px;
+      border-radius: 10px;
+    }
+
+    .mode-btn {
+      border: none;
+      background: transparent;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .mode-btn.active {
+      background: #FFF;
+      color: var(--primary);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    .customer-field {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+    }
+
+    .customer-input {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 14px;
+      outline: none;
+      width: 130px;
+    }
+    .customer-input:focus {
+      border-color: var(--primary);
+    }
+
+    /* Category Navigation */
+    .category-tabs {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding-bottom: 12px;
+      margin-bottom: 20px;
+      scrollbar-width: none;
+    }
+    .category-tabs::-webkit-scrollbar { display: none; }
+
+    .cat-tab {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      padding: 10px 18px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-muted);
+      white-space: nowrap;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+    .cat-tab.active {
+      background: var(--primary);
+      color: #FFF;
+      border-color: var(--primary);
+      box-shadow: 0 4px 12px rgba(200, 35, 43, 0.25);
+    }
+
+    /* Items Section & Grid */
+    .menu-section {
+      margin-bottom: 32px;
+    }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--dark);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding-left: 4px;
+      border-left: 4px solid var(--primary);
+    }
+
+    .items-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 16px;
+    }
+
+    .item-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.25s ease;
+      box-shadow: var(--shadow);
+      position: relative;
+    }
+    .item-card:hover {
+      border-color: rgba(200, 35, 43, 0.4);
+      transform: translateY(-3px);
+    }
+
+    .item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 8px;
+    }
+
+    .item-title {
+      font-size: 16.5px;
+      font-weight: 700;
+      color: var(--dark);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      line-height: 1.3;
+    }
+
+    .spicy-badge {
+      color: var(--spicy);
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .discount-tag {
+      display: inline-block;
+      background: var(--discount-bg);
+      color: var(--discount);
+      font-size: 11.5px;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 6px;
+      border: 1px dashed rgba(230, 81, 0, 0.4);
+      margin-top: 4px;
+    }
+
+    .item-price {
+      font-family: 'Outfit', sans-serif;
+      font-size: 19px;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .item-options {
+      margin-top: 10px;
+      display: flex;
+      gap: 6px;
+    }
+
+    .opt-pill {
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      cursor: pointer;
+      font-weight: 600;
+      color: var(--text-muted);
+      transition: all 0.2s;
+    }
+    .opt-pill.active {
+      background: var(--primary-light);
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .add-btn {
+      width: 100%;
+      margin-top: 14px;
+      background: var(--primary);
+      color: #FFF;
+      border: none;
+      padding: 9px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: background 0.2s;
+    }
+    .add-btn:hover {
+      background: var(--primary-dark);
+    }
+
+    /* Cart Sidebar */
+    .cart-sidebar {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 24px;
+      position: sticky;
+      top: 100px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+    }
+
+    .cart-title {
+      font-size: 18px;
+      font-weight: 800;
+      padding-bottom: 14px;
+      border-bottom: 2px solid var(--bg);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .cart-count-badge {
+      background: var(--primary);
+      color: #FFF;
+      font-size: 12px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-family: 'Outfit', sans-serif;
+    }
+
+    .cart-items-list {
+      max-height: 340px;
+      overflow-y: auto;
+      margin: 14px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 10px;
+      border-bottom: 1px dashed var(--border);
+    }
+
+    .cart-item-info {
+      flex: 1;
+    }
+    .cart-item-name {
+      font-weight: 700;
+      font-size: 14.5px;
+      color: var(--dark);
+    }
+    .cart-item-sub {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .cart-qty-ctrl {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-left: 10px;
+    }
+
+    .qty-btn {
+      width: 26px;
+      height: 26px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      font-weight: 800;
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+    }
+    .qty-btn:hover {
+      background: var(--primary);
+      color: #FFF;
+      border-color: var(--primary);
+    }
+
+    .cart-calc-box {
+      background: var(--bg);
+      border-radius: 10px;
+      padding: 14px;
+      margin-top: 14px;
+      font-size: 13.5px;
+    }
+
+    .calc-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+    .calc-row.discount-row {
+      color: var(--discount);
+      font-weight: 700;
+    }
+    .calc-row.total-row {
+      border-top: 1px solid var(--border);
+      padding-top: 8px;
+      margin-top: 8px;
+      font-size: 18px;
+      font-weight: 900;
+      color: var(--primary);
+    }
+
+    .checkout-btn {
+      width: 100%;
+      background: linear-gradient(135deg, #C8232B, #E53E3E);
+      color: #FFF;
+      border: none;
+      padding: 14px;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+      margin-top: 16px;
+      box-shadow: 0 6px 18px rgba(200, 35, 43, 0.35);
+      transition: all 0.2s;
+    }
+    .checkout-btn:hover {
+      opacity: 0.95;
+      transform: translateY(-2px);
+    }
+    .checkout-btn:disabled {
+      background: #D1D5DB;
+      box-shadow: none;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* Modal / Receipt */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 20px;
+    }
+    .modal-overlay.show { display: flex; }
+
+    .receipt-modal {
+      background: #FFF;
+      width: 100%;
+      max-width: 440px;
+      border-radius: 20px;
+      padding: 28px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+      position: relative;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .receipt-header {
+      text-align: center;
+      border-bottom: 2px dashed #E5E7EB;
+      padding-bottom: 16px;
+      margin-bottom: 16px;
+    }
+    .receipt-header h3 {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 20px;
+      color: var(--primary);
+    }
+
+    .receipt-lines {
+      font-size: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    /* Bottom mobile cart toggle bar */
+    .mobile-cart-bar {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: #FFF;
+      padding: 12px 20px;
+      box-shadow: 0 -4px 16px rgba(0,0,0,0.1);
+      z-index: 99;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    @media (max-width: 860px) {
+      .main-layout { grid-template-columns: 1fr; }
+      .cart-sidebar { display: none; }
+      .cart-sidebar.mobile-open {
+        display: block;
+        position: fixed;
+        bottom: 75px;
+        left: 20px;
+        right: 20px;
+        z-index: 98;
+        max-height: 70vh;
+      }
+      .mobile-cart-bar { display: flex; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Header -->
+  <header class="store-header">
+    <div class="store-container">
+      <div class="store-brand">
+        <div class="brand-seal">
+          <span>梁社</span>
+          <span>漢</span>
+        </div>
+        <div class="brand-info">
+          <h1>
+            梁社漢排骨
+            <span style="font-size:16px; font-weight:700; color:var(--gold);">新興復興店</span>
+          </h1>
+          <div class="brand-sub">
+            <span class="tag-award">兩岸十大名廚 · 國際美味評鑑</span>
+            <span>📞 (07) 235-0023</span>
+            <span>📍 高雄市新興區復興一路78號</span>
+          </div>
+        </div>
+      </div>
+      <div style="font-size:13px; font-weight:600; background:rgba(255,255,255,0.15); padding:6px 14px; border-radius:999px;">
+        🍚 今天好好吃便當
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Layout -->
+  <main class="main-layout">
+    
+    <!-- Left Menu List -->
+    <div>
+
+      <!-- Order Mode & Customer Info -->
+      <div class="order-config-card">
+        <div class="order-modes">
+          <button class="mode-btn active" onclick="setOrderMode('外帶', this)">🥡 外帶自取</button>
+          <button class="mode-btn" onclick="setOrderMode('內用', this)">🥢 門市內用</button>
+          <button class="mode-btn" onclick="setOrderMode('外送', this)">🛵 外送訂餐</button>
+        </div>
+        <div class="customer-field">
+          <label id="modeLabel" style="font-weight:700;">聯絡電話：</label>
+          <input type="text" id="customerInput" class="customer-input" placeholder="請輸入手機" value="0912-345-678">
+        </div>
+      </div>
+
+      <!-- Category Filter Tabs -->
+      <div class="category-tabs">
+        <button class="cat-tab active" onclick="filterCategory('all', this)">🍽️ 全部餐點</button>
+        <button class="cat-tab" onclick="filterCategory('mains', this)">🍱 人氣主餐 (飯/麵)</button>
+        <button class="cat-tab" onclick="filterCategory('meats', this)">🍗 單點主肉 & 主食</button>
+        <button class="cat-tab" onclick="filterCategory('sides', this)">🥗 經典小菜</button>
+        <button class="cat-tab" onclick="filterCategory('drinks', this)">🍵 湯品飲料 (現折$10)</button>
+      </div>
+
+      <!-- Menu Items Container -->
+      <div id="menuContainer"></div>
+
+    </div>
+
+    <!-- Right Sticky Cart Sidebar -->
+    <aside class="cart-sidebar" id="cartSidebar">
+      <div class="cart-title">
+        <span>🛒 點餐清單</span>
+        <span class="cart-count-badge" id="cartBadge">0 件</span>
+      </div>
+
+      <div class="cart-items-list" id="cartItemsList">
+        <p style="color:var(--text-muted); text-align:center; padding:30px 0; font-size:14px;">
+          購物車目前是空的<br>快挑選想吃的美味便當吧！
+        </p>
+      </div>
+
+      <div class="cart-calc-box">
+        <div class="calc-row">
+          <span>餐點小計</span>
+          <span id="subtotalDisplay">$0</span>
+        </div>
+        <div class="calc-row discount-row" id="discountRow" style="display:none;">
+          <span>主餐搭指定飲品/湯品現折</span>
+          <span id="discountDisplay">-$0</span>
+        </div>
+        <div class="calc-row total-row">
+          <span>結算總額</span>
+          <span id="totalDisplay">$0</span>
+        </div>
+      </div>
+
+      <div style="margin-top:14px;">
+        <label style="font-size:13px; font-weight:700; color:var(--text-muted);">客製備註：</label>
+        <input type="text" id="orderNotes" placeholder="例：飯少、排骨分開包、餐具要" style="width:100%; border:1px solid var(--border); border-radius:8px; padding:8px; font-size:13px; margin-top:4px; outline:none;">
+      </div>
+
+      <button class="checkout-btn" id="checkoutBtn" disabled onclick="openCheckoutModal()">
+        立即送出訂單
+      </button>
+
+      <div style="margin-top:14px; text-align:center; font-size:12px; color:var(--text-muted);">
+        💳 支援 LINE Pay / 台灣Pay / 信用卡感應
+      </div>
+    </aside>
+
+  </main>
+
+  <!-- Mobile Floating Cart Bar -->
+  <div class="mobile-cart-bar">
+    <div>
+      <span style="font-size:13px; color:var(--text-muted);">合計：</span>
+      <span style="font-size:20px; font-weight:900; color:var(--primary);" id="mobileTotalDisplay">$0</span>
+      <span style="font-size:12px; color:var(--discount); margin-left:6px;" id="mobileDiscountHint"></span>
+    </div>
+    <button class="mode-btn active" style="background:var(--primary); color:#FFF; padding:10px 20px;" onclick="toggleMobileCart()">
+      查看購物車 (<span id="mobileBadge">0</span>)
+    </button>
+  </div>
+
+  <!-- Order Success Modal / Receipt -->
+  <div class="modal-overlay" id="checkoutModal">
+    <div class="receipt-modal">
+      <div class="receipt-header">
+        <h2 style="font-size:22px; font-weight:900; color:var(--primary);">梁社漢排骨</h2>
+        <p style="font-size:14px; font-weight:700; color:var(--dark);">新興復興店 · 點餐收執單</p>
+        <p style="font-size:12px; color:var(--text-muted); margin-top:4px;" id="receiptTimestamp"></p>
+      </div>
+
+      <div style="font-size:13.5px; margin-bottom:12px; padding-bottom:8px; border-bottom:1px solid var(--border);">
+        <div><strong>訂單編號：</strong><span id="receiptOrderNo"></span></div>
+        <div><strong>取餐方式：</strong><span id="receiptMode"></span></div>
+        <div><strong>顧客資訊：</strong><span id="receiptCustomer"></span></div>
+        <div id="receiptNotesBox"><strong>客製備註：</strong><span id="receiptNotes"></span></div>
+      </div>
+
+      <div class="receipt-lines" id="receiptItems"></div>
+
+      <div class="cart-calc-box" style="margin-bottom:20px;">
+        <div class="calc-row">
+          <span>餐點原價</span>
+          <span id="receiptSubtotal"></span>
+        </div>
+        <div class="calc-row discount-row" id="receiptDiscountRow">
+          <span>搭主餐折扣</span>
+          <span id="receiptDiscount"></span>
+        </div>
+        <div class="calc-row total-row">
+          <span>應付金額</span>
+          <span id="receiptTotal"></span>
+        </div>
+      </div>
+
+      <div style="display:flex; gap:10px;">
+        <button class="add-btn" style="background:#10B981;" onclick="copyOrderText()">
+          📋 複製訂單文字傳 LINE
+        </button>
+        <button class="add-btn" style="background:#6B7280;" onclick="closeModal()">
+          關閉
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Menu Data directly from attached physical menu
+    const menuData = [
+      // Mains (飯 / 麵)
+      { id: 'm1', name: '椒麻雞飯/麵', price: 130, category: 'mains', spicy: true, hasTypeOption: true },
+      { id: 'm2', name: '炸排骨飯/麵', price: 105, category: 'mains', spicy: false, hasTypeOption: true },
+      { id: 'm3', name: '滷排骨飯/麵', price: 105, category: 'mains', spicy: false, hasTypeOption: true },
+      { id: 'm4', name: '炸雞腿飯/麵', price: 128, category: 'mains', spicy: false, hasTypeOption: true },
+      { id: 'm5', name: '玫瑰油雞飯/麵', price: 128, category: 'mains', spicy: false, hasTypeOption: true },
+      { id: 'm6', name: '炸紅糟肉飯/麵', price: 95, category: 'mains', spicy: false, hasTypeOption: true },
+      { id: 'm7', name: '香滷五花肉飯/麵', price: 89, category: 'mains', spicy: false, hasTypeOption: true },
+
+      // Meats & Staples (單點肉品 & 白飯)
+      { id: 'p1', name: '椒麻雞 (單點)', price: 99, category: 'meats', spicy: true },
+      { id: 'p2', name: '炸排骨 (單點)', price: 75, category: 'meats', spicy: false },
+      { id: 'p3', name: '滷排骨 (單點)', price: 75, category: 'meats', spicy: false },
+      { id: 'p4', name: '炸雞腿 (單點)', price: 98, category: 'meats', spicy: false },
+      { id: 'p5', name: '玫瑰油雞 (單點)', price: 98, category: 'meats', spicy: false },
+      { id: 'p6', name: '炸紅糟肉 (單點)', price: 65, category: 'meats', spicy: false },
+      { id: 'p7', name: '香滷五花肉 (單點)', price: 55, category: 'meats', spicy: false },
+      { id: 'p8', name: '白飯', price: 10, category: 'meats', spicy: false },
+
+      // Side Dishes (小菜類)
+      { id: 's1', name: '椒麻炸豆腐', price: 45, category: 'sides', spicy: true },
+      { id: 's2', name: '燙青菜 (當日供應為主)', price: 35, category: 'sides', spicy: false },
+      { id: 's3', name: '皮蛋嫩豆腐', price: 35, category: 'sides', spicy: false },
+      { id: 's4', name: '黃金炸豆腐', price: 35, category: 'sides', spicy: false },
+      { id: 's5', name: '秋葵', price: 30, category: 'sides', spicy: false },
+      { id: 's6', name: '韓式泡菜', price: 30, category: 'sides', spicy: true },
+      { id: 's7', name: '黃金泡菜', price: 30, category: 'sides', spicy: false },
+      { id: 's8', name: '柚香蘿蔔', price: 20, category: 'sides', spicy: false },
+      { id: 's9', name: '香滷鴨蛋', price: 17, category: 'sides', spicy: false },
+      { id: 's10', name: '香滷豆腐', price: 15, category: 'sides', spicy: false },
+
+      // Drinks & Soups (湯品/飲品，標有折10元者)
+      { id: 'd1', name: '文山包種茶', price: 45, category: 'drinks', discountable: true },
+      { id: 'd2', name: '金萱熟成紅茶', price: 45, category: 'drinks', discountable: true },
+      { id: 'd3', name: '味噌湯', price: 25, category: 'drinks', discountable: true },
+      { id: 'd4', name: '蘿蔔排骨湯', price: 30, category: 'drinks', discountable: false },
+      { id: 'd5', name: '蜂蜜香檸茶', price: 25, category: 'drinks', discountable: false },
+      { id: 'd6', name: '古早味特調紅茶', price: 20, category: 'drinks', discountable: false }
+    ];
+
+    let currentOrderMode = '外帶';
+    let currentSelectedType = {}; // itemId -> '飯' | '麵'
+    let cart = []; // { id, name, option, price, qty, isMain, discountable }
+
+    // Initialize item type defaults
+    menuData.forEach(item => {
+      if (item.hasTypeOption) {
+        currentSelectedType[item.id] = '飯';
+      }
+    });
+
+    // Render Menu
+    function renderMenu(filter = 'all') {
+      const container = document.getElementById('menuContainer');
+      container.innerHTML = '';
+
+      const categories = [
+        { key: 'mains', title: '🍱 人氣主餐 (可任選搭配 飯 / 麵)' },
+        { key: 'meats', title: '🍗 單點主肉 & 飽足主食' },
+        { key: 'sides', title: '🥗 經典開胃小菜' },
+        { key: 'drinks', title: '🍵 湯品飲料 (搭配主餐折10元專區)' }
+      ];
+
+      categories.forEach(cat => {
+        if (filter !== 'all' && filter !== cat.key) return;
+
+        const items = menuData.filter(i => i.category === cat.key);
+        if (items.length === 0) return;
+
+        const section = document.createElement('div');
+        section.className = 'menu-section';
+
+        let itemsHtml = items.map(item => {
+          let optionsHtml = '';
+          if (item.hasTypeOption) {
+            const currentOpt = currentSelectedType[item.id] || '飯';
+            optionsHtml = `
+              <div class="item-options">
+                <span class="opt-pill ${currentOpt === '飯' ? 'active' : ''}" onclick="selectType('${item.id}', '飯')">飯 🍚</span>
+                <span class="opt-pill ${currentOpt === '麵' ? 'active' : ''}" onclick="selectType('${item.id}', '麵')">麵 🍜</span>
+              </div>
+            `;
+          }
+
+          let discountTag = item.discountable ? `<div class="discount-tag">⭐ 搭配主餐現折 $10</div>` : '';
+
+          return `
+            <div class="item-card">
+              <div>
+                <div class="item-header">
+                  <div class="item-title">
+                    ${item.name}
+                    ${item.spicy ? '<span class="spicy-badge">🌶️</span>' : ''}
+                  </div>
+                  <div class="item-price">$${item.price}</div>
+                </div>
+                ${discountTag}
+                ${optionsHtml}
+              </div>
+              <button class="add-btn" onclick="addToCart('${item.id}')">
+                <span>+ 加入點單</span>
+              </button>
+            </div>
+          `;
+        }).join('');
+
+        section.innerHTML = `
+          <h2 class="section-title">${cat.title}</h2>
+          <div class="items-grid">${itemsHtml}</div>
+        `;
+        container.appendChild(section);
+      });
+    }
+
+    // Toggle rice/noodle
+    function selectType(itemId, type) {
+      currentSelectedType[itemId] = type;
+      renderMenu(currentActiveCategory);
+    }
+
+    let currentActiveCategory = 'all';
+    function filterCategory(cat, btn) {
+      currentActiveCategory = cat;
+      document.querySelectorAll('.cat-tab').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderMenu(cat);
+    }
+
+    function setOrderMode(mode, btn) {
+      currentOrderMode = mode;
+      document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const label = document.getElementById('modeLabel');
+      const input = document.getElementById('customerInput');
+      if (mode === '內用') {
+        label.textContent = '桌號／姓名：';
+        input.placeholder = '例：5 號桌';
+      } else if (mode === '外送') {
+        label.textContent = '外送地址：';
+        input.placeholder = '請輸入外送地址及電話';
+      } else {
+        label.textContent = '聯絡電話：';
+        input.placeholder = '請輸入手機';
+      }
+    }
+
+    // Add to Cart
+    function addToCart(itemId) {
+      const item = menuData.find(i => i.id === itemId);
+      if (!item) return;
+
+      const opt = item.hasTypeOption ? (currentSelectedType[itemId] || '飯') : '';
+      const cartKey = `${item.id}_${opt}`;
+
+      const existing = cart.find(c => c.cartKey === cartKey);
+      if (existing) {
+        existing.qty++;
+      } else {
+        cart.push({
+          cartKey: cartKey,
+          id: item.id,
+          name: item.name,
+          option: opt,
+          price: item.price,
+          qty: 1,
+          isMain: item.category === 'mains',
+          discountable: Boolean(item.discountable)
+        });
+      }
+
+      updateCart();
+    }
+
+    function changeQty(cartKey, delta) {
+      const idx = cart.findIndex(c => c.cartKey === cartKey);
+      if (idx === -1) return;
+
+      cart[idx].qty += delta;
+      if (cart[idx].qty <= 0) {
+        cart.splice(idx, 1);
+      }
+      updateCart();
+    }
+
+    // Calculate Totals & Combo Discounts
+    function updateCart() {
+      const listEl = document.getElementById('cartItemsList');
+      const badgeEl = document.getElementById('cartBadge');
+      const mobileBadgeEl = document.getElementById('mobileBadge');
+      const subtotalEl = document.getElementById('subtotalDisplay');
+      const discountRowEl = document.getElementById('discountRow');
+      const discountEl = document.getElementById('discountDisplay');
+      const totalEl = document.getElementById('totalDisplay');
+      const mobileTotalEl = document.getElementById('mobileTotalDisplay');
+      const mobileDiscountHint = document.getElementById('mobileDiscountHint');
+      const checkoutBtn = document.getElementById('checkoutBtn');
+
+      const totalItemsCount = cart.reduce((acc, cur) => acc + cur.qty, 0);
+      badgeEl.textContent = `${totalItemsCount} 件`;
+      mobileBadgeEl.textContent = totalItemsCount;
+
+      if (cart.length === 0) {
+        listEl.innerHTML = `
+          <p style="color:var(--text-muted); text-align:center; padding:30px 0; font-size:14px;">
+            購物車目前是空的<br>快挑選想吃的美味便當吧！
+          </p>
+        `;
+        subtotalEl.textContent = '$0';
+        discountRowEl.style.display = 'none';
+        totalEl.textContent = '$0';
+        mobileTotalEl.textContent = '$0';
+        mobileDiscountHint.textContent = '';
+        checkoutBtn.disabled = true;
+        return;
+      }
+
+      checkoutBtn.disabled = false;
+
+      // Render cart items
+      listEl.innerHTML = cart.map(item => `
+        <div class="cart-item">
+          <div class="cart-item-info">
+            <div class="cart-item-name">${item.name}</div>
+            <div class="cart-item-sub">
+              ${item.option ? `[${item.option}] ` : ''}$${item.price} / 份
+            </div>
+          </div>
+          <div class="cart-qty-ctrl">
+            <button class="qty-btn" onclick="changeQty('${item.cartKey}', -1)">-</button>
+            <span style="font-weight:800; min-width:18px; text-align:center;">${item.qty}</span>
+            <button class="qty-btn" onclick="changeQty('${item.cartKey}', 1)">+</button>
+          </div>
+        </div>
+      `).join('');
+
+      // Calculations:
+      // Subtotal
+      const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+
+      // Discount calculation: Each pair of 1 Main Course + 1 Discountable Drink/Soup gets $10 off
+      const totalMains = cart.filter(i => i.isMain).reduce((sum, i) => sum + i.qty, 0);
+      const totalDiscountableDrinks = cart.filter(i => i.discountable).reduce((sum, i) => sum + i.qty, 0);
+      const eligibleDiscountPairs = Math.min(totalMains, totalDiscountableDrinks);
+      const discountAmount = eligibleDiscountPairs * 10;
+      const finalTotal = subtotal - discountAmount;
+
+      subtotalEl.textContent = `$${subtotal}`;
+      if (discountAmount > 0) {
+        discountRowEl.style.display = 'flex';
+        discountEl.textContent = `-$${discountAmount} (${eligibleDiscountPairs}組折價)`;
+        mobileDiscountHint.textContent = `(已折$${discountAmount})`;
+      } else {
+        discountRowEl.style.display = 'none';
+        mobileDiscountHint.textContent = '';
+      }
+
+      totalEl.textContent = `$${finalTotal}`;
+      mobileTotalEl.textContent = `$${finalTotal}`;
+    }
+
+    function toggleMobileCart() {
+      const sidebar = document.getElementById('cartSidebar');
+      sidebar.classList.toggle('mobile-open');
+    }
+
+    // Checkout Modal
+    function openCheckoutModal() {
+      if (cart.length === 0) return;
+
+      const now = new Date();
+      const timeStr = `${now.getFullYear()}/${now.getMonth()+1}/${now.getDate()} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
+      const orderNo = 'LH' + Math.floor(100000 + Math.random() * 900000);
+
+      document.getElementById('receiptTimestamp').textContent = `點餐時間：${timeStr}`;
+      document.getElementById('receiptOrderNo').textContent = orderNo;
+      document.getElementById('receiptMode').textContent = currentOrderMode;
+      document.getElementById('receiptCustomer').textContent = document.getElementById('customerInput').value || '未填寫';
+
+      const notes = document.getElementById('orderNotes').value.trim();
+      const notesBox = document.getElementById('receiptNotesBox');
+      if (notes) {
+        notesBox.style.display = 'block';
+        document.getElementById('receiptNotes').textContent = notes;
+      } else {
+        notesBox.style.display = 'none';
+      }
+
+      // Calculations
+      const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+      const totalMains = cart.filter(i => i.isMain).reduce((sum, i) => sum + i.qty, 0);
+      const totalDiscountableDrinks = cart.filter(i => i.discountable).reduce((sum, i) => sum + i.qty, 0);
+      const discountAmount = Math.min(totalMains, totalDiscountableDrinks) * 10;
+      const finalTotal = subtotal - discountAmount;
+
+      document.getElementById('receiptItems').innerHTML = cart.map(item => `
+        <div style="display:flex; justify-content:space-between;">
+          <span>${item.name} ${item.option ? `[${item.option}]` : ''} × ${item.qty}</span>
+          <span style="font-weight:700;">$${item.price * item.qty}</span>
+        </div>
+      `).join('');
+
+      document.getElementById('receiptSubtotal').textContent = `$${subtotal}`;
+      const rDiscountRow = document.getElementById('receiptDiscountRow');
+      if (discountAmount > 0) {
+        rDiscountRow.style.display = 'flex';
+        document.getElementById('receiptDiscount').textContent = `-$${discountAmount}`;
+      } else {
+        rDiscountRow.style.display = 'none';
+      }
+      document.getElementById('receiptTotal').textContent = `$${finalTotal}`;
+
+      document.getElementById('checkoutModal').classList.add('show');
+    }
+
+    function closeModal() {
+      document.getElementById('checkoutModal').classList.remove('show');
+    }
+
+    function copyOrderText() {
+      const orderNo = document.getElementById('receiptOrderNo').textContent;
+      const mode = currentOrderMode;
+      const customer = document.getElementById('customerInput').value;
+      const notes = document.getElementById('orderNotes').value;
+      const total = document.getElementById('receiptTotal').textContent;
+
+      let itemsStr = cart.map(i => `• ${i.name} ${i.option ? `[${i.option}]` : ''} × ${i.qty} = $${i.price * i.qty}`).join('\n');
+
+      const text = `【梁社漢排骨 新興復興店 訂單】
+單號：${orderNo}
+類型：${mode}
+顧客資訊：${customer}
+${notes ? `備註：${notes}\n` : ''}
+----- 點餐明細 -----
+${itemsStr}
+-------------------
+實付金額：${total}
+門市專線：(07) 235-0023
+地址：高雄市新興區復興一路78號`;
+
+      navigator.clipboard.writeText(text).then(() => {
+        alert('✅ 點餐明細已複製到剪貼簿！可直接貼在 LINE 傳給門市或同事確認。');
+      }).catch(() => {
+        alert('請手動複製點餐明細。');
+      });
+    }
+
+    // Init load
+    renderMenu();
+  </script>
+</body>
+</html>
