@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>梁社漢排骨 新興復興店 ｜ 線上點餐系統</title>
+  <title>阿駿排骨店 ｜ 線上點餐系統</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@600;700;900&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -566,24 +566,19 @@
   <header class="store-header">
     <div class="store-container">
       <div class="store-brand">
-        <div class="brand-seal">
-          <span>梁社</span>
-          <span>漢</span>
-        </div>
         <div class="brand-info">
           <h1>
-            梁社漢排骨
-            <span style="font-size:16px; font-weight:700; color:var(--gold);">新興復興店</span>
+            🍱 阿駿排骨店
+            <span style="font-size:15px; font-weight:700; color:var(--gold); margin-left:8px;">線上點餐</span>
           </h1>
           <div class="brand-sub">
-            <span class="tag-award">兩岸十大名廚 · 國際美味評鑑</span>
-            <span>📞 (07) 235-0023</span>
-            <span>📍 高雄市新興區復興一路78號</span>
+            <span class="tag-award">嚴選好肉 · 經典美味</span>
+            <span>🍚 嚴選台灣米 · 經典現炸現滷便當</span>
           </div>
         </div>
       </div>
       <div style="font-size:13px; font-weight:600; background:rgba(255,255,255,0.15); padding:6px 14px; border-radius:999px;">
-        🍚 今天好好吃便當
+        🥢 今天好好吃便當
       </div>
     </div>
   </header>
@@ -681,8 +676,8 @@
   <div class="modal-overlay" id="checkoutModal">
     <div class="receipt-modal">
       <div class="receipt-header">
-        <h2 style="font-size:22px; font-weight:900; color:var(--primary);">梁社漢排骨</h2>
-        <p style="font-size:14px; font-weight:700; color:var(--dark);">新興復興店 · 點餐收執單</p>
+        <h2 style="font-size:22px; font-weight:900; color:var(--primary);">阿駿排骨店</h2>
+        <p style="font-size:14px; font-weight:700; color:var(--dark);">點餐收執單</p>
         <p style="font-size:12px; color:var(--text-muted); margin-top:4px;" id="receiptTimestamp"></p>
       </div>
 
@@ -1051,7 +1046,7 @@
 
       let itemsStr = cart.map(i => `• ${i.name} ${i.option ? `[${i.option}]` : ''} × ${i.qty} = $${i.price * i.qty}`).join('\n');
 
-      const text = `【梁社漢排骨 新興復興店 訂單】
+      const text = `【阿駿排骨店 訂單】
 單號：${orderNo}
 類型：${mode}
 顧客資訊：${customer}
@@ -1060,8 +1055,7 @@ ${notes ? `備註：${notes}\n` : ''}
 ${itemsStr}
 -------------------
 實付金額：${total}
-門市專線：(07) 235-0023
-地址：高雄市新興區復興一路78號`;
+感謝您的訂購，祝您用餐愉快！`;
 
       navigator.clipboard.writeText(text).then(() => {
         alert('✅ 點餐明細已複製到剪貼簿！可直接貼在 LINE 傳給門市或同事確認。');
