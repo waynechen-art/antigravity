@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>《產業人才投資方案》8頁線上簡報</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #090e13;
+      --card-bg: rgba(18, 28, 38, 0.7);
+      --card-border: rgba(34, 197, 94, 0.2);
+      --accent-green: #10B981;
+      --accent-green-bright: #34D399;
+      --accent-green-glow: rgba(16, 185, 129, 0.25);
+      --accent-amber: #F59E0B;
+      --accent-cyan: #06B6D4;
+      --text-main: #F3F4F6;
+      --text-sub: #9CA3AF;
+      --text-muted: #6B7280;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text-main);
+      font-family: 'Outfit', 'Noto Sans TC', sans-serif;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    /* Background Ambient Gradients */
+    .bg-glow {
+      position: absolute;
+      top: -20%;
+      left: 10%;
+      width: 60vw;
+      height: 60vw;
+      background: radial-gradient(circle, rgba(16, 185, 129, 0.12) 0%, rgba(9, 14, 19, 0) 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .bg-glow-2 {
+      position: absolute;
+      bottom: -30%;
+      right: 5%;
+      width: 50vw;
+      height: 50vw;
+      background: radial-gradient(circle, rgba(6, 182, 212, 0.08) 0%, rgba(9, 14, 19, 0) 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Top Progress Bar */
+    .progress-bar-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.08);
+      z-index: 100;
+    }
+    .progress-bar {
+      height: 100%;
+      width: 12.5%;
+      background: linear-gradient(90deg, var(--accent-green), var(--accent-cyan));
+      transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 0 12px var(--accent-green);
+    }
+
+    /* Deck Container */
+    .deck-container {
+      position: relative;
+      flex: 1;
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      height: 100%;
+      z-index: 10;
+      padding: 30px 40px 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Individual Slide */
+    .slide {
+      position: absolute;
+      width: 100%;
+      height: 82vh;
+      max-height: 720px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(60px) scale(0.98);
+      transition: opacity 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .slide.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(0) scale(1);
+    }
+
+    .slide.prev {
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(-60px) scale(0.98);
+    }
+
+    /* Slide Header */
+    .slide-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      border-radius: 999px;
+      color: var(--accent-green-bright);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+      width: fit-content;
+    }
+
+    .slide-title {
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 800;
+      color: #FFFFFF;
+      letter-spacing: -0.02em;
+      line-height: 1.25;
+      margin-bottom: 8px;
+    }
+
+    .slide-desc {
+      color: var(--text-sub);
+      font-size: 16px;
+      line-height: 1.6;
+      margin-bottom: 28px;
+      max-width: 800px;
+    }
+
+    /* Cards & Grids */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 24px;
+      backdrop-filter: blur(12px);
+      position: relative;
+      transition: all 0.3s ease;
+    }
+    .card.highlight {
+      border-color: rgba(16, 185, 129, 0.4);
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, rgba(18, 28, 38, 0.8) 100%);
+      box-shadow: 0 10px 30px -10px var(--accent-green-glow);
+    }
+    .card.amber-highlight {
+      border-color: rgba(245, 158, 11, 0.4);
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.12) 0%, rgba(18, 28, 38, 0.8) 100%);
+    }
+
+    .card h3 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: #FFF;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .card p, .card li {
+      font-size: 14.5px;
+      color: var(--text-sub);
+      line-height: 1.65;
+    }
+
+    .card ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .card li::before {
+      content: "•";
+      color: var(--accent-green-bright);
+      font-weight: bold;
+      display: inline-block;
+      width: 1em;
+      margin-left: -1em;
+    }
+
+    /* Giant Stat Highlight */
+    .stat-hero {
+      font-size: clamp(48px, 6vw, 76px);
+      font-weight: 900;
+      background: linear-gradient(135deg, #34D399, #10B981);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1;
+      margin-bottom: 6px;
+      font-family: 'Outfit', sans-serif;
+    }
+
+    .stat-hero.amber {
+      background: linear-gradient(135deg, #FCD34D, #F59E0B);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Process Flow */
+    .step-chain {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 10px;
+    }
+    .step-node {
+      flex: 1;
+      background: var(--card-bg);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      padding: 20px 16px;
+      text-align: center;
+      position: relative;
+    }
+    .step-number {
+      font-family: 'Outfit', sans-serif;
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--accent-green-bright);
+      background: rgba(16, 185, 129, 0.15);
+      width: 28px;
+      height: 28px;
+      line-height: 28px;
+      border-radius: 50%;
+      margin: 0 auto 10px;
+    }
+    .step-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #FFF;
+      margin-bottom: 6px;
+    }
+    .step-desc {
+      font-size: 12.5px;
+      color: var(--text-sub);
+      line-height: 1.4;
+    }
+    .step-arrow {
+      color: var(--text-muted);
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    /* Tag Pills */
+    .pill-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .pill {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 8px;
+      padding: 6px 12px;
+      font-size: 13px;
+      color: var(--text-main);
+    }
+    .pill.green {
+      background: rgba(16, 185, 129, 0.15);
+      border-color: rgba(16, 185, 129, 0.35);
+      color: var(--accent-green-bright);
+      font-weight: 600;
+    }
+    .pill.amber {
+      background: rgba(245, 158, 11, 0.15);
+      border-color: rgba(245, 158, 11, 0.35);
+      color: #FBBF24;
+      font-weight: 600;
+    }
+
+    /* Bottom Controller */
+    .controls {
+      position: absolute;
+      bottom: 20px;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 40px;
+      z-index: 50;
+    }
+    .slide-counter {
+      font-family: 'Outfit', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-muted);
+      letter-spacing: 0.1em;
+    }
+    .dots {
+      display: flex;
+      gap: 10px;
+    }
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .dot.active {
+      width: 28px;
+      border-radius: 8px;
+      background: var(--accent-green);
+      box-shadow: 0 0 10px var(--accent-green);
+    }
+    .btn-group {
+      display: flex;
+      gap: 10px;
+    }
+    .nav-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #FFF;
+      padding: 8px 18px;
+      border-radius: 10px;
+      font-size: 13.5px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+    .nav-btn:hover {
+      background: rgba(16, 185, 129, 0.2);
+      border-color: var(--accent-green);
+      color: var(--accent-green-bright);
+    }
+    .nav-btn:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+      border-color: transparent;
+    }
+
+    /* Hotkey tips */
+    .hotkey-tip {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-left: 15px;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .grid-3, .grid-4, .grid-2 { grid-template-columns: 1fr; }
+      .step-chain { flex-direction: column; }
+      .step-arrow { transform: rotate(90deg); margin: 6px 0; }
+      .deck-container { padding: 20px 20px 90px; }
+      .controls { padding: 0 20px; }
+      .hotkey-tip { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Ambient Glows -->
+  <div class="bg-glow"></div>
+  <div class="bg-glow-2"></div>
+
+  <!-- Top Progress Bar -->
+  <div class="progress-bar-container">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+
+  <!-- Slides Container -->
+  <div class="deck-container">
+
+    <!-- SLIDE 1: COVER -->
+    <div class="slide active" data-slide="1">
+      <div class="slide-badge">勞動部勞動力發展署 · 官方規範指南</div>
+      <h1 class="slide-title" style="font-size: clamp(34px, 5.2vw, 56px); margin-bottom: 16px;">
+        《產業人才投資方案》<br><span style="color: var(--accent-green-bright);">三年十萬</span> 在職培訓要點精華
+      </h1>
+      <p class="slide-desc" style="font-size: 18px; max-width: 720px; margin-bottom: 36px;">
+        為在職勞工量身打造的技能升級計畫。由政府就業保險與就業安定基金全額提撥支持，自主學習、累積個人人力資本。
+      </p>
+      <div class="grid-3" style="max-width: 900px;">
+        <div class="card highlight">
+          <div class="stat-hero">10 萬</div>
+          <h3>三年最高額度</h3>
+          <p>每位學員 3 年內累計最高享新臺幣 100,000 元補助款。</p>
+        </div>
+        <div class="card">
+          <div class="stat-hero amber">80%~100%</div>
+          <h3>高額學費補貼</h3>
+          <p>一般勞工補貼 50%~80%，特定對象享全額 100% 免學費。</p>
+        </div>
+        <div class="card">
+          <div class="stat-hero" style="background: linear-gradient(135deg, #38BDF8, #06B6D4); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">15 歲+</div>
+          <h3>有保在職即可申領</h3>
+          <p>具勞保、就保、職災保或農保身分之在職勞工皆可參加。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 2: 方案宗旨與定位 -->
+    <div class="slide" data-slide="2">
+      <div class="slide-badge">SLIDE 02 · 核心宗旨</div>
+      <h2 class="slide-title">激發自主學習 · 驅動產業升級</h2>
+      <p class="slide-desc">政府藉由資金補助機制，減輕勞工在職進修的財務負擔，鼓勵養成終身學習習慣。</p>
+      
+      <div class="grid-2">
+        <div class="card highlight" style="display:flex; flex-direction:column; justify-content:center;">
+          <h3 style="font-size:24px; color:var(--accent-green-bright); margin-bottom:16px;">🎯 政策三大核心訴求</h3>
+          <ul>
+            <li><strong>提升工作勝任力</strong>：充實專業知識、最新技術與職場態度。</li>
+            <li><strong>累積人力資本</strong>：面對 AI 與產業轉型，維持無可取代的競爭力。</li>
+            <li><strong>落實經費普及</strong>：由「就業保險基金」與「就業安定基金」專款支應。</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3 style="margin-bottom:16px;">📊 產投方案與一般職訓差異</h3>
+          <table style="width:100%; border-collapse: collapse; font-size:14px; color:var(--text-sub);">
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.1);">
+              <th style="padding:10px 0; text-align:left; color:#FFF;">比較項目</th>
+              <th style="padding:10px 0; text-align:left; color:var(--accent-green-bright);">產業人才投資方案</th>
+              <th style="padding:10px 0; text-align:left; color:var(--text-muted);">一般職前訓練</th>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+              <td style="padding:10px 0; color:#FFF;">對象</td>
+              <td style="padding:10px 0;">在職勞工（白天工作）</td>
+              <td style="padding:10px 0;">失業者 / 待業者</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+              <td style="padding:10px 0; color:#FFF;">排課時間</td>
+              <td style="padding:10px 0;">平日晚間或週末假日</td>
+              <td style="padding:10px 0;">全日制密集密集培訓</td>
+            </tr>
+            <tr>
+              <td style="padding:10px 0; color:#FFF;">學員自主性</td>
+              <td style="padding:10px 0;">跨域選課、彈性選讀</td>
+              <td style="padding:10px 0;">轉職目標導向班</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 3: 補助對象與身分資格 -->
+    <div class="slide" data-slide="3">
+      <div class="slide-badge">SLIDE 03 · 參訓資格</div>
+      <h2 class="slide-title">誰能享有補助？兩大基準核驗</h2>
+      <p class="slide-desc">年齡與補助資格統一以該訓練課程之<strong>「開訓日」</strong>為核算基準日。</p>
+
+      <div class="grid-3">
+        <div class="card highlight">
+          <div style="font-size:28px; margin-bottom:8px;">🛡️</div>
+          <h3>1. 投保身分（必備）</h3>
+          <p>開訓當天具備以下任一被保險人身分：</p>
+          <div class="pill-group">
+            <span class="pill green">就業保險</span>
+            <span class="pill green">勞工保險</span>
+            <span class="pill green">職災保險</span>
+            <span class="pill green">農民健康保險</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <div style="font-size:28px; margin-bottom:8px;">🌏</div>
+          <h3>2. 國籍與居留條件</h3>
+          <ul>
+            <li>具中華民國國籍。</li>
+            <li>與設有戶籍之國民結婚、獲准居留且在臺合法工作之外籍／陸港澳配偶。</li>
+            <li>特定無戶籍或依就服法取得許可人士。</li>
+            <li>跨國人口販運被害人並取得工作許可。</li>
+          </ul>
+        </div>
+
+        <div class="card amber-highlight">
+          <div style="font-size:28px; margin-bottom:8px;">⚠️</div>
+          <h3 style="color:#FBBF24;">排他限制條款</h3>
+          <p><strong>不可雙重補助</strong>：<br>正在參加政府職前訓練並接受經費補助者，不得同時申領本方案。</p>
+          <p style="margin-top:10px; font-size:13px; color:#FCD34D;">
+            *例外保障：若在職參訓期間突遇「非自願性失業」，補助資格不受影響。
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 4: 補助金額與成數解析 -->
+    <div class="slide" data-slide="4">
+      <div class="slide-badge">SLIDE 04 · 補助額度</div>
+      <h2 class="slide-title">三年十萬額度 · 兩大補助梯次</h2>
+      <p class="slide-desc">每位勞工於三年期程內，補助上限為 10 萬元，分為「一般補助」與「全額補助」。</p>
+
+      <div class="grid-2">
+        <div class="card">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+            <h3 style="font-size:22px; color:#FFF;">一般在職勞工</h3>
+            <span class="pill green" style="font-size:15px; padding:6px 14px;">50% ~ 80% 補助</span>
+          </div>
+          <p style="margin-bottom:16px;">依訓練單位經審查核定之收費標準補助，其餘差額由學員自行負擔。</p>
+          <ul>
+            <li>絕大多數熱門實務技能課程補助達 <strong>80%</strong>。</li>
+            <li>大幅降低勞工進修門檻，享受國家投資紅利。</li>
+          </ul>
+        </div>
+
+        <div class="card highlight">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+            <h3 style="font-size:22px; color:var(--accent-green-bright);">特定弱勢族群</h3>
+            <span class="pill green" style="background:var(--accent-green); color:#000; font-size:15px; font-weight:700;">100% 全額免費</span>
+          </div>
+          <p style="margin-bottom:12px;">符合下列條件者，全額由政府買單：</p>
+          <div class="pill-group" style="gap:6px;">
+            <span class="pill green">中高齡（45-65歲）</span>
+            <span class="pill green">高齡（逾65歲）</span>
+            <span class="pill green">身心障礙者</span>
+            <span class="pill green">原住民族</span>
+            <span class="pill green">低收 / 中低收入戶</span>
+            <span class="pill green">獨力負擔家計者</span>
+            <span class="pill green">家庭暴力被害人</span>
+            <span class="pill green">更生受保護人</span>
+            <span class="pill green">犯罪被害人及親屬</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 5: 課程類別與重點領域 -->
+    <div class="slide" data-slide="5">
+      <div class="slide-badge">SLIDE 05 · 課程範疇</div>
+      <h2 class="slide-title">政府重點產業優先 · 6大關鍵領域</h2>
+      <p class="slide-desc">所有課程均由大專校院、合格職訓機構或產業公會開辦，確保教學品質與師資。</p>
+
+      <div class="grid-2" style="margin-bottom:18px;">
+        <div class="card">
+          <h3 style="color:var(--accent-cyan);">🎓 大專校院學分班</h3>
+          <p>由教育部核准大專校院開課，具正式大學或碩士學分證明，兼具學歷加分與學門深度。</p>
+        </div>
+        <div class="card">
+          <h3 style="color:var(--accent-green-bright);">🛠️ 實務非學分班</h3>
+          <p>由工會、商會、研究機構及法人團體辦理，強調產業第一線即戰力與實戰操作證照。</p>
+        </div>
+      </div>
+
+      <div class="grid-3">
+        <div class="card" style="padding:16px;">
+          <h3 style="font-size:16px;">💻 數位應用能力</h3>
+          <p style="font-size:13px;">AI 工具、大數據分析、程式開發、雲端資訊安全。</p>
+        </div>
+        <div class="card" style="padding:16px;">
+          <h3 style="font-size:16px;">🌐 國際溝通能力</h3>
+          <p style="font-size:13px;">商務外語、跨國經貿洽談、跨境電商經營。</p>
+        </div>
+        <div class="card" style="padding:16px;">
+          <h3 style="font-size:16px;">🔬 研發創新能力</h3>
+          <p style="font-size:13px;">關鍵製程、產品設計研發、綠能低碳永續技術。</p>
+        </div>
+        <div class="card" style="padding:16px;">
+          <h3 style="font-size:16px;">⚙️ 專業技術課程</h3>
+          <p style="font-size:13px;">機電整合、精密製造、專業檢定與國家執照。</p>
+        </div>
+        <div class="card" style="padding:16px;">
+          <h3 style="font-size:16px;">📈 經營管理課程</h3>
+          <p style="font-size:13px;">專案管理、供應鏈與採購、品質管理（QA/QC）。</p>
+        </div>
+        <div class="card" style="padding:16px;">
+          <h3 style="font-size:16px;">🤝 共通核心職能</h3>
+          <p style="font-size:13px;">職場法規、團隊溝通、工作倫理與協作素養。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 6: 請領門檻與流程 -->
+    <div class="slide" data-slide="6">
+      <div class="slide-badge">SLIDE 06 · 申領程序</div>
+      <h2 class="slide-title">輕鬆請領 5 步驟 · 出席率是關鍵</h2>
+      <p class="slide-desc">政府直撥入帳，無需繁瑣報帳，但必須落實到課規範。</p>
+
+      <div class="step-chain">
+        <div class="step-node">
+          <div class="step-number">1</div>
+          <div class="step-title">線上報名繳費</div>
+          <div class="step-desc">至「台灣就業通」報名並繳納訓練費</div>
+        </div>
+        <div class="step-arrow">→</div>
+        <div class="step-node" style="border-color:rgba(16,185,129,0.4); background:rgba(16,185,129,0.08);">
+          <div class="step-number">2</div>
+          <div class="step-title" style="color:var(--accent-green-bright);">完成課程培訓</div>
+          <div class="step-desc" style="color:#FFF;"><strong>缺課不可逾 1/5 (20%)</strong></div>
+        </div>
+        <div class="step-arrow">→</div>
+        <div class="step-node">
+          <div class="step-number">3</div>
+          <div class="step-title">取得結訓證書</div>
+          <div class="step-desc">通過考核並填寫意見調查表</div>
+        </div>
+        <div class="step-arrow">→</div>
+        <div class="step-node">
+          <div class="step-number">4</div>
+          <div class="step-title">訓練單位送審</div>
+          <div class="step-desc">彙整名冊與銀行帳戶交分署核定</div>
+        </div>
+        <div class="step-arrow">→</div>
+        <div class="step-node" style="border-color:rgba(16,185,129,0.4);">
+          <div class="step-number">5</div>
+          <div class="step-title" style="color:var(--accent-green-bright);">款項直接入帳</div>
+          <div class="step-desc">補助款撥付學員指定個人帳戶</div>
+        </div>
+      </div>
+
+      <div class="card highlight" style="margin-top:28px;">
+        <h3 style="color:var(--accent-green-bright); font-size:18px;">⭐ 務必留意的合格指標</h3>
+        <p>
+          「缺席時數未超過總訓練時數之五分之一」為核發補助的硬性法定門檻。請假或缺課逾限將無法領取任何補助款，請參訓學員妥善規劃排班與出勤！
+        </p>
+      </div>
+    </div>
+
+    <!-- SLIDE 7: 違規地雷與停權規範 -->
+    <div class="slide" data-slide="7">
+      <div class="slide-badge">SLIDE 07 · 規範與處分</div>
+      <h2 class="slide-title">切勿觸犯法規 · 誠信參訓原則</h2>
+      <p class="slide-desc">落實查核機制，針對代簽、冒名與辦訓瑕疵嚴格規範處分。</p>
+
+      <div class="grid-2">
+        <div class="card amber-highlight">
+          <h3 style="color:#FBBF24;">🚫 學員端處分</h3>
+          <ul>
+            <li style="margin-bottom:12px;">
+              <strong style="color:#FFF;">停止補助 1 年</strong>：<br>
+              代他人簽名、請託他人代為簽名、實際到課狀況與簽名紀錄不符者。
+            </li>
+            <li>
+              <strong style="color:#FFF;">停止補助 2 年</strong>：<br>
+              偽造不實身分資料、冒名頂替他人參訓，或將個資借他人參訓者。
+            </li>
+          </ul>
+          <p style="margin-top:14px; font-size:13px; color:#FCD34D;">
+            *追回款項：凡經查獲違規，一律撤銷補助並依法追還已核發之全額款項。
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>🏢 訓練單位端處分</h3>
+          <ul>
+            <li style="margin-bottom:8px;">
+              <strong>停權 1 年</strong>：消防建安不合規、資格審查不實、招生廣告不實、超收費用或未代轉補助款。
+            </li>
+            <li>
+              <strong>停權 2 年</strong>：虛報人頭請款、轉包代辦班次、偽造公文書、重複請領補助或未留存單據達 10 年者。
+            </li>
+          </ul>
+          <p style="margin-top:14px; font-size:13px; color:var(--text-sub);">
+            勞動部定期派員實地抽查、突擊稽核，保障納稅人預算與參訓安全。
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 8: 總結與行動清單 -->
+    <div class="slide" data-slide="8">
+      <div class="slide-badge">SLIDE 08 · 行動指南</div>
+      <h2 class="slide-title">投資自己 · 政府買單 4 步走</h2>
+      <p class="slide-desc">把握三年十萬補助配額，讓政府成為你職場進修的最強後盾！</p>
+
+      <div class="grid-4" style="margin-bottom:28px;">
+        <div class="card highlight">
+          <div style="font-size:24px; color:var(--accent-green-bright); font-weight:800; margin-bottom:8px;">01</div>
+          <h3 style="font-size:18px;">確認投保</h3>
+          <p style="font-size:13px;">確認具備勞保、就保或農保等在職身分。</p>
+        </div>
+        <div class="card highlight">
+          <div style="font-size:24px; color:var(--accent-green-bright); font-weight:800; margin-bottom:8px;">02</div>
+          <h3 style="font-size:18px;">挑選課程</h3>
+          <p style="font-size:13px;">上「台灣就業通」搜尋感興趣的重點產業班次。</p>
+        </div>
+        <div class="card highlight">
+          <div style="font-size:24px; color:var(--accent-green-bright); font-weight:800; margin-bottom:8px;">03</div>
+          <h3 style="font-size:18px;">按時到課</h3>
+          <p style="font-size:13px;">缺課未超過 1/5，並順利取得結訓考核證明。</p>
+        </div>
+        <div class="card highlight">
+          <div style="font-size:24px; color:var(--accent-green-bright); font-weight:800; margin-bottom:8px;">04</div>
+          <h3 style="font-size:18px;">坐等撥款</h3>
+          <p style="font-size:13px;">單位代送審核，補助金額直接入帳個人戶頭！</p>
+        </div>
+      </div>
+
+      <div style="text-align:center; padding:20px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:14px;">
+        <p style="color:#FFF; font-size:18px; font-weight:600;">
+          💡 「職場跑道上配速穩定，自主學習讓你持續領先！」
+        </p>
+        <p style="color:var(--text-sub); font-size:13px; margin-top:4px;">
+          更多完整法規與條文請隨時查閱 <a href="report.md" style="color:var(--accent-green-bright); text-decoration:none; font-weight:600;">report.md</a> 深入瞭解。
+        </p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Bottom Controllers -->
+  <div class="controls">
+    <div style="display:flex; align-items:center;">
+      <div class="slide-counter" id="counter">01 / 08</div>
+      <span class="hotkey-tip">可使用鍵盤 ← / → 或 空白鍵 切換</span>
+    </div>
+
+    <div class="dots" id="dotsContainer"></div>
+
+    <div class="btn-group">
+      <button class="nav-btn" id="prevBtn" disabled>← 上一頁</button>
+      <button class="nav-btn" id="nextBtn">下一頁 →</button>
+      <button class="nav-btn" id="fullscreenBtn" title="全螢幕切換">⛶ 全螢幕</button>
+    </div>
+  </div>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+    let currentSlide = 0;
+
+    const counter = document.getElementById('counter');
+    const progressBar = document.getElementById('progressBar');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const dotsContainer = document.getElementById('dotsContainer');
+    const fullscreenBtn = document.getElementById('fullscreenBtn');
+
+    // Create pagination dots
+    slides.forEach((_, idx) => {
+      const dot = document.createElement('div');
+      dot.classList.add('dot');
+      if (idx === 0) dot.classList.add('active');
+      dot.addEventListener('click', () => goToSlide(idx));
+      dotsContainer.appendChild(dot);
+    });
+
+    const dots = document.querySelectorAll('.dot');
+
+    function updateSlide() {
+      slides.forEach((slide, idx) => {
+        slide.classList.remove('active', 'prev');
+        if (idx === currentSlide) {
+          slide.classList.add('active');
+        } else if (idx < currentSlide) {
+          slide.classList.add('prev');
+        }
+      });
+
+      // Update counter & progress bar
+      counter.textContent = `${String(currentSlide + 1).padStart(2, '0')} / ${String(totalSlides).padStart(2, '0')}`;
+      progressBar.style.width = `${((currentSlide + 1) / totalSlides) * 100}%`;
+
+      // Update dots
+      dots.forEach((dot, idx) => {
+        dot.classList.toggle('active', idx === currentSlide);
+      });
+
+      // Update button states
+      prevBtn.disabled = currentSlide === 0;
+      nextBtn.disabled = currentSlide === totalSlides - 1;
+    }
+
+    function goToSlide(n) {
+      if (n >= 0 && n < totalSlides) {
+        currentSlide = n;
+        updateSlide();
+      }
+    }
+
+    function nextSlide() {
+      if (currentSlide < totalSlides - 1) {
+        currentSlide++;
+        updateSlide();
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 0) {
+        currentSlide--;
+        updateSlide();
+      }
+    }
+
+    // Event Listeners
+    nextBtn.addEventListener('click', nextSlide);
+    prevBtn.addEventListener('click', prevSlide);
+
+    // Keyboard navigation
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+        e.preventDefault();
+        nextSlide();
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        e.preventDefault();
+        prevSlide();
+      } else if (e.key === 'Home') {
+        e.preventDefault();
+        goToSlide(0);
+      } else if (e.key === 'End') {
+        e.preventDefault();
+        goToSlide(totalSlides - 1);
+      } else if (e.key.toLowerCase() === 'f') {
+        toggleFullscreen();
+      }
+    });
+
+    // Touch Swipe for Mobile
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    window.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, false);
+
+    window.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      if (touchStartX - touchEndX > 50) nextSlide();
+      if (touchEndX - touchStartX > 50) prevSlide();
+    }, false);
+
+    // Fullscreen Toggle
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(err => alert(err.message));
+      } else {
+        if (document.exitFullscreen) document.exitFullscreen();
+      }
+    }
+    fullscreenBtn.addEventListener('click', toggleFullscreen);
+
+    // Initial load
+    updateSlide();
+  </script>
+</body>
+</html>
