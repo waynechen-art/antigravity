@@ -41,80 +41,6 @@
       padding-bottom: 90px;
     }
 
-    /* Top Brand Header */
-    .store-header {
-      background: linear-gradient(135deg, #A81B22 0%, #D32F2F 100%);
-      color: #FFF;
-      padding: 24px 20px 20px;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      box-shadow: 0 4px 16px rgba(168, 27, 34, 0.25);
-    }
-
-    .store-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 16px;
-    }
-
-    .store-brand {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .brand-seal {
-      width: 52px;
-      height: 52px;
-      background: #FFF;
-      color: var(--primary);
-      border-radius: 12px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Noto Serif TC', serif;
-      font-weight: 900;
-      font-size: 15px;
-      line-height: 1.1;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-      flex-shrink: 0;
-    }
-
-    .brand-info h1 {
-      font-family: 'Noto Serif TC', serif;
-      font-size: 24px;
-      font-weight: 900;
-      letter-spacing: 0.02em;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .brand-sub {
-      font-size: 13px;
-      opacity: 0.9;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-top: 4px;
-      flex-wrap: wrap;
-    }
-
-    .tag-award {
-      background: rgba(255, 255, 255, 0.2);
-      border: 1px solid rgba(255, 255, 255, 0.4);
-      padding: 2px 8px;
-      border-radius: 999px;
-      font-size: 11px;
-      font-weight: 600;
-    }
-
     /* Main Layout Grid */
     .main-layout {
       max-width: 1200px;
@@ -352,7 +278,7 @@
       border-radius: 18px;
       padding: 24px;
       position: sticky;
-      top: 100px;
+      top: 24px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.06);
     }
 
@@ -562,24 +488,19 @@
 </head>
 <body>
 
-  <!-- Top Header -->
-  <header class="store-header">
-    <div class="store-container">
-      <div class="store-brand">
-        <div class="brand-info">
-          <h1>
-            🍱 阿駿排骨店
-            <span style="font-size:15px; font-weight:700; color:var(--gold); margin-left:8px;">線上點餐</span>
-          </h1>
-          <div class="brand-sub">
-            <span class="tag-award">嚴選好肉 · 經典美味</span>
-            <span>🍚 嚴選台灣米 · 經典現炸現滷便當</span>
-          </div>
-        </div>
-      </div>
-      <div style="font-size:13px; font-weight:600; background:rgba(255,255,255,0.15); padding:6px 14px; border-radius:999px;">
-        🥢 今天好好吃便當
-      </div>
+  <!-- Top Brand Title -->
+  <header style="max-width: 1200px; margin: 32px auto 8px; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px;">
+    <div>
+      <h1 style="font-family: 'Noto Serif TC', serif; font-size: clamp(26px, 4vw, 34px); font-weight: 900; color: var(--primary); letter-spacing: -0.02em; display: flex; align-items: center; gap: 10px;">
+        🍱 阿駿排骨店
+        <span style="font-size: 13px; font-family: 'Outfit', 'Noto Sans TC', sans-serif; font-weight: 700; color: var(--gold-dark); background: #FFF; border: 1px solid var(--border); padding: 4px 12px; border-radius: 999px;">線上點餐系統</span>
+      </h1>
+      <p style="font-size: 14px; color: var(--text-muted); margin-top: 4px;">
+        嚴選好肉 · 經典現炸現滷美味便當
+      </p>
+    </div>
+    <div style="font-size: 13.5px; font-weight: 600; color: var(--dark); background: #FFF; border: 1px solid var(--border); padding: 8px 16px; border-radius: 999px; box-shadow: var(--shadow);">
+      🥢 今天好好吃便當
     </div>
   </header>
 
